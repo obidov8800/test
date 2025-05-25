@@ -1,0 +1,67 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Statistika</h2>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Umumiy ma'lumotlar
+                </div>
+                <div class="card-body">
+                    <p><strong>Bajarilgan testlar:</strong> {{ total_tests }}</p>
+                    <p><strong>O'rtacha ball:</strong> {{ average_score }}%</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    So'nggi 10 test natijalari
+                </div>
+                <div class="card-body">
+                    <canvas id="resultsChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('resultsChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [
+            {% for result in user_results %}
+                "{{ result.subject.name|truncatechars:15 }}",
+            {% endfor %}
+        ],
+        datasets: [{
+            label: 'Foiz',
+            data: [
+                {% for result in user_results %}
+                    {{ result.percentage }},
+                {% endfor %}
+            ],
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+<div class="card text-center">
+    <div class="card-header bg-primary text-white">
+        <h2>Test Yakunlandi!</h2>
+    </div>
+    <div class="card-body">
+        <h3>{{ subject.name }}</h3>
+        <p class="fs-4">To'g'ri javoblar: {{ correct }} / {{ total }}</p>
+        <p class="fs-5">Foiz: {% widthratio correct total 100 %}%</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Bosh Sahifa</a>
+    </div>
+</div>
+{% endblock %}

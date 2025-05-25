@@ -1,0 +1,24 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+<h1>Test Fanlari</h1>
+
+    <form class="mb-4" method="get">
+    <div class="input-group">
+        <input type="text" class="form-control" 
+               name="search" placeholder="Fan nomi bo'yicha qidirish..."
+               value="{{ search_query }}">
+        <button class="btn btn-primary" type="submit">Qidirish</button>
+    </div>    <br/>
+<div class="list-group">
+    {% for subject in subjects %}
+    <a href="{% url 'test' subject.id %}" class="list-group-item list-group-item-action">
+        {{ subject.name }}
+    </a>
+
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+</form>

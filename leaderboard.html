@@ -1,0 +1,42 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Eng Yaxshi Test Yechuvchilar</h2>
+    
+    {% if user_top %}
+    <div class="card my-4">
+        <div class="card-header">
+            Sizning eng yaxshi natijangiz
+        </div>
+        <div class="card-body">
+            <h5>{{ user_top.subject.name }}</h5>
+            <p>{{ user_top.score }}/{{ user_top.total }} ({{ user_top.percentage }}%)</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Foydalanuvchi</th>
+                <th>Fan</th>
+                <th>Ball</th>
+                <th>Foiz</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in top_results %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ result.user.username }}</td>
+                <td>{{ result.subject.name }}</td>
+                <td>{{ result.score }}/{{ result.total }}</td>
+                <td>{{ result.percentage }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
